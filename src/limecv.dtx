@@ -1858,8 +1858,8 @@ Dear Miss.\ Smith
   \end{tikzpicture}
 }
 \NewDocumentEnvironment{cvMainContent*}{}{%
-  \stepcounter{titlePrev}
-  \stepcounter{titleNext}
+  \stepcounter{cv@titlePrev}
+  \stepcounter{cv@titleNext}
     \begin{tikzpicture}[%
       every node/.style={
         inner sep=0pt,
@@ -1867,7 +1867,7 @@ Dear Miss.\ Smith
       remember picture,
       overlay,
       shift={($(current page.north west)+%
-      (\cvMargin+\cvTimeDotSep,-\cvMargin)$)}]
+      (2\cvMargin+\cvTimeDotSep,-\cvMargin)$)}]
 }{%
     \end{tikzpicture}%
 }
@@ -2664,6 +2664,24 @@ Dear Miss.\ Smith
   \end{tikzpicture}
 }
 %    \end{macrocode}
+%
+%------------------------------------------------------
+%
+%   CV Page Control
+%
+%
+% Insert page break / start a new CV page
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\cvNewPage}{}{%
+  \setlength\cvMainWidth{\paperwidth-4\cvMargin}
+  \setcounter{cv@itemPrev}{0}
+  \setcounter{cv@itemNext}{1}
+  \setcounter{cv@lastItem}{1}
+  \clearpage
+}
+%    \end{macrocode}
+%
 %------------------------------------------------------
 %
 %   cvCoverLetter environment
