@@ -2675,9 +2675,9 @@ Dear Miss.\ Smith
 %    \begin{macrocode}
 \NewDocumentCommand{\cvNewPage}{}{%
   \setlength\cvMainWidth{\paperwidth-4\cvMargin}
-  \setcounter{cv@itemPrev}{0}
-  \setcounter{cv@itemNext}{1}
-  \setcounter{cv@lastItem}{1}
+  \stepcounter{cv@itemPrev}
+  \stepcounter{cv@itemNext}
+  \stepcounter{cv@lastItem}
   \clearpage
 }
 %    \end{macrocode}
