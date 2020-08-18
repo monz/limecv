@@ -1085,6 +1085,8 @@ Dear Miss.\ Smith
   timedot/.style = {},
   contactIcon/.style={},
   contactText/.style={},
+  pInfoIcon/.style={},
+  pInfoText/.style={},
   headerIcon/.style={},
   skillLevel/.style={},
   languageText/.style={},
@@ -1128,6 +1130,15 @@ Dear Miss.\ Smith
     minimum height=\baselineskip,
     text depth=0pt,
     contactText,
+  },
+  cv@pInfoIcon/.style={%
+    minimum height=\baselineskip,
+    pInfoIcon,
+  },
+  cv@pInfoText/.style={%
+    minimum height=\baselineskip,
+    text depth=0pt,
+    pInfoText,
   },
   cv@headerIcon/.style={%
     minimum width=\cvHeaderIconWidth,
@@ -1381,6 +1392,8 @@ Dear Miss.\ Smith
 \setlength\cvInterestDetailsSep{4pt}
 \newlength\cvContactItemSep
 \setlength\cvContactItemSep{5pt}
+\newlength\cvPInfoItemSep
+\setlength\cvPInfoItemSep{5pt}
 %    \end{macrocode}
 % line width of line below cover letter name
 %    \begin{macrocode}
@@ -1597,6 +1610,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/interests = Interests}%
     \pgfkeys{/@cv/names/professional = Professional}%
     \pgfkeys{/@cv/names/personal = Personal}%
+    \pgfkeys{/@cv/names/personalInfo = Personal Information}%
     \pgfkeys{/@cv/names/projects = Projects}%
     \pgfkeys{/@cv/names/education = Education}%
     \pgfkeys{/@cv/names/experience = Experience}%
@@ -1615,6 +1629,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/interests = Interesses}%
     \pgfkeys{/@cv/names/professional = Professioneel}%
     \pgfkeys{/@cv/names/personal = Persoonlijk}%
+    \pgfkeys{/@cv/names/personalInfo = ::missing translation::}%
     \pgfkeys{/@cv/names/projects = Projecten}%
     \pgfkeys{/@cv/names/education = Opleiding}%
     \pgfkeys{/@cv/names/experience = Werkervaring}%
@@ -1634,6 +1649,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/interests = 兴趣爱好}%
     \pgfkeys{/@cv/names/professional = Professional}%
     \pgfkeys{/@cv/names/personal = Personal}%
+    \pgfkeys{/@cv/names/personalInfo = ::missing translation::}%
     \pgfkeys{/@cv/names/projects = 我的项目}%
     \pgfkeys{/@cv/names/education = 教育背景}%
     \pgfkeys{/@cv/names/experience = 工作经验}%
@@ -1653,6 +1669,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/interests = Centres d'int\'{e}r\^{e}t}%
     \pgfkeys{/@cv/names/professional = Professionel}%
     \pgfkeys{/@cv/names/personal = Personnel}%
+    \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
     \pgfkeys{/@cv/names/projects = Projets}%
     \pgfkeys{/@cv/names/education = Education}%
     \pgfkeys{/@cv/names/experience = Exp\'{e}riences}%
@@ -1671,6 +1688,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/interests = Interessen}%
     \pgfkeys{/@cv/names/professional = Beruflich}%
     \pgfkeys{/@cv/names/personal = Persönlich}%
+    \pgfkeys{/@cv/names/personalInfo = Persönliches}%
     \pgfkeys{/@cv/names/projects = Projekte}%
     \pgfkeys{/@cv/names/education = Ausbildung}%
     \pgfkeys{/@cv/names/experience = Berufliche Erfahrung}%
@@ -1690,6 +1708,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/interests = Interessi}%
     \pgfkeys{/@cv/names/professional = Professionali}%
     \pgfkeys{/@cv/names/personal = Personali}%
+    \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
     \pgfkeys{/@cv/names/projects = Progetti}%
     \pgfkeys{/@cv/names/education = Formazione}%
     \pgfkeys{/@cv/names/experience = Esperienze lavorative}%
@@ -2197,6 +2216,44 @@ Dear Miss.\ Smith
       row sep=\cvContactItemSep,
       inner sep=0pt, 
       outer sep=0pt] (contact) \bgroup
+}{%
+  \\\egroup; % \\ required, does not compile otherwise
+  \end{tikzpicture}%
+}
+%    \end{macrocode}
+%------------------------------------------------------
+%
+%   cvPersonalInfo environment
+%
+%
+%    \begin{macrocode}
+\NewDocumentCommand{\cv@PInfoTemplate}{mm}{
+  \NewDocumentCommand{#1}{m}{
+      \ifcv@pinfofirst \\ \else %
+        \global\cv@pinfofirsttrue \fi\node[cv@pInfoIcon]{#2};
+        \pgfmatrixnextcell \node[cv@pInfoText]{##1};
+  }
+}
+\newif\ifcv@pinfofirst
+\NewDocumentEnvironment{cvPersonalInfo}{}{%
+  \vspace{\cvSectionSBSep}
+  \ruleline{\pgfkeysvalueof{/@cv/names/personalInfo}}%
+  \vspace{\cvSectionSBSep}
+
+  \global\cv@pinfofirstfalse
+  \cv@PInfoTemplate{\cvPInfoBorn}{\faBirthdayCake}
+  \cv@PInfoTemplate{\cvPInfoMaritalState}{\faVenusMars}
+  \cv@PInfoTemplate{\cvPInfoCitizenship}{\faGlobe}
+
+  \begin{tikzpicture}[%
+    every node/.style={inner sep=0pt, outer sep=0pt}]
+    \matrix [
+      column 1/.style={anchor=center},
+      column 2/.style={anchor=west,align=left},
+      column sep=\cvPInfoItemSep,
+      row sep=\cvPInfoItemSep,
+      inner sep=0pt,
+      outer sep=0pt] (personalInfo) \bgroup
 }{%
   \\\egroup; % \\ required, does not compile otherwise
   \end{tikzpicture}%
