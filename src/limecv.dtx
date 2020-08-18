@@ -1608,6 +1608,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/contact = Contact}%
     \pgfkeys{/@cv/names/languages = Languages}%
     \pgfkeys{/@cv/names/interests = Interests}%
+    \pgfkeys{/@cv/names/internships = Internships}%
     \pgfkeys{/@cv/names/professional = Professional}%
     \pgfkeys{/@cv/names/personal = Personal}%
     \pgfkeys{/@cv/names/personalInfo = Personal Information}%
@@ -1627,6 +1628,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/contact = Gegevens}%
     \pgfkeys{/@cv/names/languages = Talenkennis}%
     \pgfkeys{/@cv/names/interests = Interesses}%
+    \pgfkeys{/@cv/names/internships = ::missing translation, internships::}%
     \pgfkeys{/@cv/names/professional = Professioneel}%
     \pgfkeys{/@cv/names/personal = Persoonlijk}%
     \pgfkeys{/@cv/names/personalInfo = ::missing translation::}%
@@ -1647,6 +1649,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/contact = 联系我}%
     \pgfkeys{/@cv/names/languages = 语言能力}%
     \pgfkeys{/@cv/names/interests = 兴趣爱好}%
+    \pgfkeys{/@cv/names/internships = ::missing translation, internships::}%
     \pgfkeys{/@cv/names/professional = Professional}%
     \pgfkeys{/@cv/names/personal = Personal}%
     \pgfkeys{/@cv/names/personalInfo = ::missing translation::}%
@@ -1667,6 +1670,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/contact = Contact}%
     \pgfkeys{/@cv/names/languages = Langues}%
     \pgfkeys{/@cv/names/interests = Centres d'int\'{e}r\^{e}t}%
+    \pgfkeys{/@cv/names/internships = ::missing translation, internships::}%
     \pgfkeys{/@cv/names/professional = Professionel}%
     \pgfkeys{/@cv/names/personal = Personnel}%
     \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
@@ -1686,6 +1690,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/contact = Kontakt}%
     \pgfkeys{/@cv/names/languages = Sprachen}%
     \pgfkeys{/@cv/names/interests = Interessen}%
+    \pgfkeys{/@cv/names/internships = Praktika}%
     \pgfkeys{/@cv/names/professional = Beruflich}%
     \pgfkeys{/@cv/names/personal = Persönlich}%
     \pgfkeys{/@cv/names/personalInfo = Persönliches}%
@@ -1706,6 +1711,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/contact = Contatti}%
     \pgfkeys{/@cv/names/languages = Lingue}%
     \pgfkeys{/@cv/names/interests = Interessi}%
+    \pgfkeys{/@cv/names/internships = ::missing translation, internships ::}%
     \pgfkeys{/@cv/names/professional = Professionali}%
     \pgfkeys{/@cv/names/personal = Personali}%
     \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
@@ -1837,6 +1843,26 @@ Dear Miss.\ Smith
     \stepcounter{cv@lastItem}
     \draw (item \the\value{cv@itemPrev}.south west) 
       node (cv@last item \the\value{cv@lastItem}) {};
+}
+%    \end{macrocode}
+%------------------------------------------------------
+%
+%   cvInternship environment
+%
+%    \begin{macrocode}
+\NewDocumentEnvironment{cvInternships}{}{%
+  \cv@Title{\pgfkeysvalueof{/@cv/names/internships}}{\faUniversity}
+  %    \end{macrocode}
+% insures uniqueness
+%    \begin{macrocode}
+  \stepcounter{cv@itemPrev}
+  \stepcounter{cv@itemNext}
+  \cv@definecvItem
+}{%
+  \cv@EndSectionDraw
+  \stepcounter{cv@lastItem}
+  \draw (item \the\value{cv@itemPrev}.south west)
+    node (cv@last item \the\value{cv@lastItem}) {};
 }
 %    \end{macrocode}
 %------------------------------------------------------
