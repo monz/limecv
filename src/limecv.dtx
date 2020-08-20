@@ -1018,6 +1018,10 @@ Dear Miss.\ Smith
 % Checks if node is defined.
 %
 % Based on: \url{https://tex.stackexchange.com/questions/37709}
+% Own:
+% \url{https://tex.stackexchange.com/questions/37709/how-can-i-know-if-a-node-is-already-defined}
+% if #1 is defined return #2, #3 otherwise
+% node names here are separated with 'whitespace' <- xD
 %
 %    \begin{macrocode}
 \long\def\ifnodedefined#1#2#3{%
@@ -1366,6 +1370,8 @@ Dear Miss.\ Smith
 \setlength\cvProgressAreaHeight{0.75em}
 \newlength\cvSectionSep
 \setlength\cvSectionSep{0.6cm}
+\newlength\cvSectionSepNoTitle
+\setlength\cvSectionSepNoTitle{0.1cm}
 \newlength\cvSectionSBSep
 \setlength\cvSectionSBSep{4pt}
 %    \end{macrocode}
@@ -1461,6 +1467,8 @@ Dear Miss.\ Smith
 \setcounter{cv@titleNext}{1}
 %    \end{macrocode}
 % Draw everything associated with main section title.
+% Own:
+% https://tex.stackexchange.com/questions/38674/the-the-command
 %    \begin{macrocode}
 \NewDocumentCommand{\cv@Title}{mm}{%
   \ifnodedefined{cv@last item \the\value{cv@lastItem}}{%
@@ -1523,6 +1531,45 @@ Dear Miss.\ Smith
 }%
 \stepcounter{cv@titlePrev}%
 \stepcounter{cv@titleNext}
+}
+%    \end{macrocode}
+% Do not draw any title information, no icon, no text
+% this is a hack e.g. for mulitple reference sections
+% to be able to show multiple lines of references without
+% repeating 'reference' section title
+% better solution would have been to fix 'reference' environment
+% did not have time to get into this, for now this must work
+% its ugly I know!
+% this will break all titled environments below this one,
+% should only be used as last element, as done with 'references'
+% in my case
+%    \begin{macrocode}
+\NewDocumentCommand{\cv@TitleNoTitle}{}{%
+  \ifnodedefined{cv@last item \the\value{cv@lastItem}}{%
+    \setlength\cvHeaderIconWidth\cvHeaderIconWidth%{%
+    \protected@write\@auxout{}{\global\cvHeaderIconWidth=\the\cvHeaderIconWidth}
+    \node[%
+      below=\cvSectionSep of cv@last item %
+        \the\value{cv@lastItem}.south west,
+      cv@sectionTitle]
+      (cv@title \the\value{cv@titleNext}){
+        % do not draw title text
+      };
+    % do not draw the title icon
+    \node[
+      below=\cvSectionSep of cv@last item %
+        \the\value{cv@lastItem}.south west,
+      cv@sectionTitle]
+      (cv@title \the\value{cv@titleNext} dummy) {%
+        \phantom{\cvSection{Education}}};
+    \begin{scope}[on background layer]
+      % do not draw any line
+    \end{scope}
+  }{%
+    % do nothing, 'title' node should already exist
+  }%
+  \stepcounter{cv@titlePrev}%
+  \stepcounter{cv@titleNext}
 }
 %    \end{macrocode}
 % Draw the timeline
@@ -1935,6 +1982,27 @@ Dear Miss.\ Smith
   \cv@Title{\pgfkeysvalueof{/@cv/names/references}}{\faLink}
   \node[
     below=\cvSectionSep of cv@title \the\value{cv@titlePrev}.%
+      south west,
+    anchor=north west,
+    ] (cv@References) \bgroup %
+}{%
+  \egroup;
+  \stepcounter{cv@lastItem}
+  \draw (cv@References.south west) node %
+    (cv@last item \the\value{cv@lastItem}) {};
+}
+%    \end{macrocode}
+%------------------------------------------------------
+%
+%   cvReferences environment without title
+% this is a hacky workaround to provide multi-row references
+% fixing original 'reference' environment should be the better solution
+%
+%    \begin{macrocode}
+\NewDocumentEnvironment{cvReferencesNoTitle}{}{%
+  \cv@TitleNoTitle
+  \node[
+    below=\cvSectionSepNoTitle of cv@title \the\value{cv@titlePrev}.%
       south west,
     anchor=north west,
     ] (cv@References) \bgroup %
