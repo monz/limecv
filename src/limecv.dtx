@@ -1843,10 +1843,10 @@ Dear Miss.\ Smith
 %    \begin{macrocode}
 \NewDocumentCommand{\cvSkillOneNoRating}{m}{%
   \ifcv@firstskill
-    \g@addto@macro\cv@skillsTable{ #1}
+    \g@addto@macro\cv@skillsTable{\color{black} #1}
     \cv@firstskillfalse
   \else
-    \g@addto@macro\cv@skillsTable{\\[\cvSkillSep]  #1}
+    \g@addto@macro\cv@skillsTable{\\[\cvSkillSep] \color{black} #1}
   \fi
 }
 %    \end{macrocode}
