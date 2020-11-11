@@ -1839,6 +1839,17 @@ Dear Miss.\ Smith
   \fi
 }
 %    \end{macrocode}
+% typeset one skill without rating, e.g. no stars, circles whatsoever
+%    \begin{macrocode}
+\NewDocumentCommand{\cvSkillOneNoRating}{m}{%
+  \ifcv@firstskill
+    \g@addto@macro\cv@skillsTable{ #1}
+    \cv@firstskillfalse
+  \else
+    \g@addto@macro\cv@skillsTable{\\[\cvSkillSep]  #1}
+  \fi
+}
+%    \end{macrocode}
 %------------------------------------------------------
 %
 %   cvMainContent environments
