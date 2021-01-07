@@ -1661,6 +1661,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/personalInfo = Personal Information}%
     \pgfkeys{/@cv/names/projects = Projects}%
     \pgfkeys{/@cv/names/education = Education}%
+    \pgfkeys{/@cv/names/currentOccupation = Current Occupation}%
     \pgfkeys{/@cv/names/experience = Experience}%
     \pgfkeys{/@cv/names/references = References}%
     \pgfkeys{/@cv/names/skills = Skills}%
@@ -1678,9 +1679,10 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/internships = ::missing translation, internships::}%
     \pgfkeys{/@cv/names/professional = Professioneel}%
     \pgfkeys{/@cv/names/personal = Persoonlijk}%
-    \pgfkeys{/@cv/names/personalInfo = ::missing translation::}%
+    \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
     \pgfkeys{/@cv/names/projects = Projecten}%
     \pgfkeys{/@cv/names/education = Opleiding}%
+    \pgfkeys{/@cv/names/currentOccupation = ::missing translation, currentOccupation::}%
     \pgfkeys{/@cv/names/experience = Werkervaring}%
     \pgfkeys{/@cv/names/references = Referenties}%
     \pgfkeys{/@cv/names/skills = Vaardigheden}%
@@ -1699,9 +1701,10 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/internships = ::missing translation, internships::}%
     \pgfkeys{/@cv/names/professional = Professional}%
     \pgfkeys{/@cv/names/personal = Personal}%
-    \pgfkeys{/@cv/names/personalInfo = ::missing translation::}%
+    \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
     \pgfkeys{/@cv/names/projects = 我的项目}%
     \pgfkeys{/@cv/names/education = 教育背景}%
+    \pgfkeys{/@cv/names/currentOccupation = ::missing translation, currentOccupation::}%
     \pgfkeys{/@cv/names/experience = 工作经验}%
     \pgfkeys{/@cv/names/references = References}%
     \pgfkeys{/@cv/names/skills = IT技能}%
@@ -1723,6 +1726,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
     \pgfkeys{/@cv/names/projects = Projets}%
     \pgfkeys{/@cv/names/education = Education}%
+    \pgfkeys{/@cv/names/currentOccupation = ::missing translation, currentOccupation::}%
     \pgfkeys{/@cv/names/experience = Exp\'{e}riences}%
     \pgfkeys{/@cv/names/references = R\'{e}f\'{e}rences}%
     \pgfkeys{/@cv/names/skills = Comp\'{e}tences}%
@@ -1743,6 +1747,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/personalInfo = Persönliches}%
     \pgfkeys{/@cv/names/projects = Projekte}%
     \pgfkeys{/@cv/names/education = Ausbildung}%
+    \pgfkeys{/@cv/names/currentOccupation = Aktuelle Beschäftigung}%
     \pgfkeys{/@cv/names/experience = Berufserfahrung}%
     \pgfkeys{/@cv/names/references = Referenzen}%
     \pgfkeys{/@cv/names/skills = Kenntnisse}%
@@ -1764,6 +1769,7 @@ Dear Miss.\ Smith
     \pgfkeys{/@cv/names/personalInfo = ::missing translation, personalInfo::}%
     \pgfkeys{/@cv/names/projects = Progetti}%
     \pgfkeys{/@cv/names/education = Formazione}%
+    \pgfkeys{/@cv/names/currentOccupation = ::missing translation, currentOccupation::}%
     \pgfkeys{/@cv/names/experience = Esperienze lavorative}%
     \pgfkeys{/@cv/names/references = Referenze}%
     \pgfkeys{/@cv/names/skills = Competenze}%
@@ -1881,6 +1887,23 @@ Dear Miss.\ Smith
       (2\cvMargin+\cvTimeDotSep,-\cvMargin)$)}]
 }{%
     \end{tikzpicture}%
+}
+%    \end{macrocode}
+%------------------------------------------------------
+%
+%   cvCurrentOccupation environment
+%
+%    \begin{macrocode}
+\NewDocumentEnvironment{cvCurrentOccupation}{}{%
+    \cv@Title{\pgfkeysvalueof{/@cv/names/currentOccupation}}{\faBrain}
+    \stepcounter{cv@itemPrev}
+    \stepcounter{cv@itemNext}
+    \cv@definecvItem
+  }{%
+    \cv@EndSectionDraw
+    \stepcounter{cv@lastItem}
+    \draw (item \the\value{cv@itemPrev}.south west)
+      node (cv@last item \the\value{cv@lastItem}) {};
 }
 %    \end{macrocode}
 %------------------------------------------------------
