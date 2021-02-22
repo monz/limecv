@@ -2009,6 +2009,26 @@ Dear Miss.\ Smith
 %    \end{macrocode}
 %------------------------------------------------------
 %
+%   cvProjectDescriptions environment
+%
+%    \begin{macrocode}
+\NewDocumentEnvironment{cvProjectDescriptions}{}{%
+\cv@Title{\pgfkeysvalueof{/@cv/names/projects}}{\faTools}
+%    \end{macrocode}
+% insures uniqueness
+%    \begin{macrocode}
+  \stepcounter{cv@itemPrev}
+  \stepcounter{cv@itemNext}
+  \cv@definecvItem
+}{%
+  \cv@EndSectionDraw
+  \stepcounter{cv@lastItem}
+  \draw (item \the\value{cv@itemPrev}.south west)
+    node (cv@last item \the\value{cv@lastItem}) {};
+}
+%    \end{macrocode}
+%------------------------------------------------------
+%
 %   cvReferences environment
 %
 %    \begin{macrocode}
@@ -2950,4 +2970,3 @@ Dear Miss.\ Smith
 %
 % \Finale
 \endinput
-
